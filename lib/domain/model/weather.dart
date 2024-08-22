@@ -8,8 +8,8 @@ part 'weather.g.dart';
 class Weather with _$Weather {
   const factory Weather({
     required List<String> time,
-    required List<double> temperature,
-    required List<int> weathercode,
+    required List<num> temperature,
+    required List<num> weathercode,
 
 
   }) = _Weather;

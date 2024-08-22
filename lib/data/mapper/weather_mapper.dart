@@ -5,8 +5,8 @@ extension WeatherMapper on WeatherResultDto {
   Weather toWeather() {
     return Weather(
       time: time ?? [],
-      temperature: temperature2m as List<double>? ?? [],
-      weathercode: weathercode as List<int>? ?? [],
+      temperature: temperature2m ?? [],
+      weathercode: weathercode ?? [],
     );
   }
 }
