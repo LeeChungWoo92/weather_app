@@ -11,14 +11,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
   @override
   Future<Weather> getWeatherInfo(double latitude, double longitude) async {
     try {
-      print('repoimpl try');
       final weatherInfoList = await _weatherDataSource.getWeatherInfo(latitude, longitude);
-      //return weatherInfoList.map((e) => e.toWeather()).toList();
-      print('repoimpl try list : ${weatherInfoList.toWeather()}');
-
       return weatherInfoList.toWeather();
     } catch (e) {
-      print('repoimpl catch');
       return throw Exception('');
     }
   }

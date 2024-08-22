@@ -12,7 +12,7 @@ final router = GoRouter(
       path: '/home',
       builder: (context, state) {
         return ChangeNotifierProvider<WeatherViewModel>(
-          create: (context) => getIt<WeatherViewModel>(),
+          create: (_) => getIt<WeatherViewModel>(),
           child: const WeatherScreen(),
         );
       },
