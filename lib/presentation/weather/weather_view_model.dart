@@ -16,12 +16,11 @@ class WeatherViewModel with ChangeNotifier {
   void getWeatherInfo(double latitude, double longitude) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
-    final result = await _weatherInfoUseCase.execute(latitude, longitude);
+    final result = await _weatherInfoUseCase.execute();
     try {
       _state = state.copyWith(weather: result, isLoading: false);
     } catch (e) {
       _state = state.copyWith(isLoading: false);
-      //_state = state.copyWith(weather: result, isLoading: false);
     }
     notifyListeners();
   }

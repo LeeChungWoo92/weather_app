@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/domain/repository/weather_repository.dart';
 
 import '../model/weather.dart';
@@ -7,12 +8,34 @@ class WeatherInfoUseCase {
 
   WeatherInfoUseCase(this._weatherRepository);
 
-  Future<Weather> execute(double latitude, double longitude) async {
+  Future<Position?> _getGeoData() async {
     try {
-      final data = await _weatherRepository.getWeatherInfo(latitude, longitude);
-      return data;
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return null;
+        }
+      }
+
+      Position position = await Geolocator.getCurrentPosition();
+      return position;
     } catch (e) {
-      return throw ('use case error');
+      return null;
+    }
+  }
+
+  Future<Weather> execute() async {
+    try {
+      final position = await _getGeoData();
+      if (position != null) {
+        final data = await _weatherRepository.getWeatherInfo(position.latitude, position.longitude);
+        return data;
+      } else {
+        throw ('위치 정보를 가져오는데 실패했습니다.');
+      }
+    } catch (e) {
+      throw ('use case error: $e');
     }
   }
 }

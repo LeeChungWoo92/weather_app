@@ -24,32 +24,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 
   Future<void> _initialize() async {
-    await _getGeoData();
+    //await _getGeoData();
     if (latitude != null && longitude != null) {
       _fetchWeather();
     }
   }
 
-  Future<void> _getGeoData() async {
-    try {
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          _showError('위치 권한이 없습니다.');
-          return;
-        }
-      }
 
-      Position position = await Geolocator.getCurrentPosition();
-      setState(() {
-        latitude = position.latitude;
-        longitude = position.longitude;
-      });
-    } catch (e) {
-      _showError('위치를 가져오는데 실패했습니다.');
-    }
-  }
 
   void _fetchWeather() {
     final viewModel = context.read<WeatherViewModel>();
