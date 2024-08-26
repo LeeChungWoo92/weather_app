@@ -31,4 +31,25 @@ void main() {
     // 온도 텍스트 검증
     expect(find.text('25.0℃'), findsOneWidget);
   });
+
+  group('WeatherIconMapper', () {
+    test('returns correct icon for clear sky', () {
+      expect(WeatherIconMapper.getWeatherIcon(0), Icons.wb_sunny);
+    });
+
+    test('returns correct icon for partly cloudy', () {
+      expect(WeatherIconMapper.getWeatherIcon(1), Icons.cloud);
+      expect(WeatherIconMapper.getWeatherIcon(2), Icons.cloud);
+      expect(WeatherIconMapper.getWeatherIcon(3), Icons.cloud);
+    });
+
+    test('returns correct icon for fog', () {
+      expect(WeatherIconMapper.getWeatherIcon(45), Icons.foggy);
+      expect(WeatherIconMapper.getWeatherIcon(48), Icons.foggy);
+    });
+
+    test('returns default icon for unknown code', () {
+      expect(WeatherIconMapper.getWeatherIcon(999), Icons.help_outline);
+    });
+  });
 }
